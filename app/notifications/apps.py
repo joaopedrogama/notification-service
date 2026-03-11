@@ -3,13 +3,13 @@ from django.apps import AppConfig
 import threading
 
 
-class VideosConfig(AppConfig):
-    name = "videos"
+class NotificationsConfig(AppConfig):
+    name = "notifications"
 
     def ready(self):
         # Define a function to run the RabbitMQ consumer
         def start_consumer():
-            from videos.consumers import process_video
+            from notifications.consumers import send_notification
 
             try:
                 # Establish connection to RabbitMQ
@@ -25,8 +25,8 @@ class VideosConfig(AppConfig):
 
                 # Start consuming messages from the queue
                 channel.basic_consume(
-                    queue="video_to_process",
-                    on_message_callback=process_video,
+                    queue="videos_processed",
+                    on_message_callback=send_notification,
                     auto_ack=True,
                 )
 

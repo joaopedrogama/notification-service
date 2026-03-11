@@ -9,9 +9,9 @@ STOPSIGNAL SIGINT
 
 RUN mkdir -p \
         "/usr/src/app/" \
-        "/var/www/image_processing_service/static/" \
-        "/var/www/image_processing_service/media/" \
-        "/var/log/image_processing_service/" && \
+        "/var/www/notification_service/static/" \
+        "/var/www/notification_service/media/" \
+        "/var/log/notification_service/" && \
     apt-get update --yes && \
     apt-get install --yes --no-install-recommends \
         build-essential ca-certificates gettext gnupg1 \
@@ -27,7 +27,7 @@ COPY ["./app/requirements/", "./app/docker/build.sh", "/tmp/main/"]
 RUN sh "/tmp/main/build.sh" "/tmp/main" && \
     rm -rf "/tmp/main/"
 
-EXPOSE 8001
+EXPOSE 8002
 
 COPY ["./app/", "/usr/src/app/"]
 ENTRYPOINT ["sh", "/usr/src/app/docker/start.sh"]

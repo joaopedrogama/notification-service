@@ -1,14 +1,12 @@
 import re
 from django.contrib import admin
 from django.urls import path, re_path
-from .api import api
 from django.views.static import serve
 from django.conf import settings
 
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api/", api.urls),
 ]
 
 if settings.SERVE_MEDIA:

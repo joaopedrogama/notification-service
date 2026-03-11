@@ -26,9 +26,9 @@ echo "Migrations applied"
 
 if [ "$MODE" != "development" ]; then
     echo "Copying default media..."
-    mkdir -p "/var/www/image_processing_service/media/"
+    mkdir -p "/var/www/notification_service/media/"
     if [ -d "/usr/src/app/main/media/" ]; then
-        cp -a "/usr/src/app/main/media/." "/var/www/image_processing_service/media/"
+        cp -a "/usr/src/app/main/media/." "/var/www/notification_service/media/"
     fi
     echo "Finished copying default media"
 
@@ -38,18 +38,18 @@ if [ "$MODE" != "development" ]; then
 fi
 
 echo "Starting Memcache..."
-mkdir -p "/var/run/image_processing_service"
+mkdir -p "/var/run/notification_service"
 memcached -a 0700 -u root \
-    -s "/var/run/image_processing_service/memcached.sock" \
+    -s "/var/run/notification_service/memcached.sock" \
     1>>"$LOGS_ROOT/memcached.log" 2>&1 &
 echo "Memcache started"
 
-echo "Starting Image Processing Service as `whoami`"
+echo "Starting Notification Service as `whoami`"
 if [ "$MODE" = "development" ]; then
-    python -m uvicorn config.asgi:application --reload --host 0.0.0.0 --port 8001
+    python -m uvicorn config.asgi:application --reload --host 0.0.0.0 --port 8002
 else
     exec gunicorn "config.asgi:application" \
-        --name "image_processing_service" \
+        --name "notification_service" \
         --bind "0.0.0.0:8000" \
         --workers "$NUM_GUNICORN_WORKERS" \
         --worker-class uvicorn.workers.UvicornWorker \

@@ -1,6 +1,6 @@
 services:
-  image_processing_service:
-    container_name: image-processing-service
+  notification-service:
+    container_name: notification_service
     restart: unless-stopped
     networks:
       - shared_network
