@@ -25,7 +25,7 @@ class NotificationsConfig(AppConfig):
 
                 # Start consuming messages from the queue
                 channel.basic_consume(
-                    queue="videos_processed",
+                    queue="videos_failed",
                     on_message_callback=send_notification,
                     auto_ack=True,
                 )

@@ -1,7 +1,6 @@
 import json
 from django.core.mail import send_mail
 
-
 def send_notification(channel, method, properties, body):
     print(f"Received message: {body}")
     print(f"Message properties: {properties}")
