@@ -82,7 +82,7 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
-    # core apps
+    'notifications',
 ]
 
 BOTTOM_PRIORITY_APPS = []

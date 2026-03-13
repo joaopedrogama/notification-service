@@ -7,9 +7,7 @@ def send_notification(channel, method, properties, body):
 
     data = json.loads(body)
 
-    if data["status"] == "failed":
-        #send email to user
-        email_user = data["email"]
-        subject = "Video processing failed for the following video: " + data["name"]
-        message = "Video processing failed for the following video: " + data["name"]
-        send_mail(subject, message, email_user, [email_user])
+    email_user = data["email"]
+    subject = "Video processing failed for the following video: " + data["video_name"]
+    message = f"The video {data['video_name']} failed to process. reason: {data['reason']}"
+    send_mail(subject, message, email_user, [email_user])
